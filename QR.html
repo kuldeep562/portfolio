@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kuldeep Solanki — Portfolio QR</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #030303;
+      --surface: #0a0a0a;
+      --surface-1: #111111;
+      --border: #1e1e1e;
+      --border-hover: #2a2a2a;
+      --text: #e8e8e8;
+      --text-sub: #888888;
+      --text-muted: #444444;
+      --green: #00ff88;
+      --cyan: #00c8ff;
+      --amber: #ffb800;
+      --glow: rgba(0, 255, 136, 0.12);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+
+    /* Glow blobs */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.07;
+      pointer-events: none;
+    }
+    .blob-1 { width: 500px; height: 500px; background: var(--green); top: -150px; left: -100px; }
+    .blob-2 { width: 400px; height: 400px; background: var(--cyan); bottom: -100px; right: -100px; }
+
+    /* Card */
+    .card {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 0 0 1px var(--border), 0 24px 80px rgba(0,0,0,0.6);
+      animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Monogram */
+    .monogram {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--surface-1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--green);
+      letter-spacing: -0.5px;
+      box-shadow: 0 0 20px rgba(0,255,136,0.08);
+    }
+
+    /* Name */
+    .name {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .role {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-sub);
+      letter-spacing: 0.06em;
+      text-align: center;
+      margin-top: -12px;
+    }
+
+    /* QR wrapper */
+    .qr-wrapper {
+      position: relative;
+      padding: 16px;
+      margin: 4px 0;
+    }
+
+    /* Animated corner brackets */
+    .qr-wrapper::before,
+    .qr-wrapper::after {
+      content: '';
+      position: absolute;
+      width: 24px;
+      height: 24px;
+    }
+    .qr-wrapper::before {
+      top: 0; left: 0;
+      border-top: 2px solid var(--green);
+      border-left: 2px solid var(--green);
+      border-radius: 4px 0 0 0;
+    }
+    .qr-wrapper::after {
+      bottom: 0; right: 0;
+      border-bottom: 2px solid var(--green);
+      border-right: 2px solid var(--green);
+      border-radius: 0 0 4px 0;
+    }
+
+    .qr-inner {
+      position: relative;
+    }
+    .qr-inner::before,
+    .qr-inner::after {
+      content: '';
+      position: absolute;
+      width: 24px;
+      height: 24px;
+    }
+    .qr-inner::before {
+      top: 0; right: 0;
+      border-top: 2px solid var(--green);
+      border-right: 2px solid var(--green);
+      border-radius: 0 4px 0 0;
+    }
+    .qr-inner::after {
+      bottom: 0; left: 0;
+      border-bottom: 2px solid var(--green);
+      border-left: 2px solid var(--green);
+      border-radius: 0 0 0 4px;
+    }
+
+    /* Scanning line animation */
+    .scan-line {
+      position: absolute;
+      left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--green), transparent);
+      opacity: 0.6;
+      animation: scan 2.5s ease-in-out infinite;
+      top: 16px;
+      pointer-events: none;
+    }
+    @keyframes scan {
+      0%   { top: 16px; opacity: 0.6; }
+      50%  { top: calc(100% - 16px - 2px); opacity: 0.3; }
+      100% { top: 16px; opacity: 0.6; }
+    }
+
+    /* URL */
+    .url {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      word-break: break-all;
+      text-align: center;
+      padding: 0 8px;
+    }
+
+    /* Label */
+    .label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-sub);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    /* CTA */
+    .cta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: 1px solid rgba(0,200,255,0.25);
+      background: rgba(0,200,255,0.05);
+      color: var(--cyan);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      transition: all 150ms ease;
+    }
+    .cta:hover {
+      background: rgba(0,200,255,0.12);
+      border-color: var(--cyan);
+    }
+
+    /* Tags */
+    .tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* Border accent at top */
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -1px; left: 20%; right: 20%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--green), transparent);
+    }
+  </style>
+</head>
+<body>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <div class="card">
+    <!-- Monogram -->
+    <div class="monogram">KS</div>
+
+    <!-- Name -->
+    <div>
+      <div class="name">Kuldeep Solanki</div>
+      <div class="role">AI / ML Engineer</div>
+    </div>
+
+    <!-- QR Code -->
+    <div class="qr-wrapper">
+      <div class="qr-inner">
+        <div class="scan-line"></div>
+        <!-- ── Replace the src below with your deployed URL ── -->
+        <img
+          src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https://kuldeep562.github.io/portfolio&bgcolor=000000&color=e8e8e8&margin=10&qzone=1"
+          alt="Portfolio QR Code"
+          width="220"
+          height="220"
+          style="display: block; border-radius: 4px;"
+        />
+      </div>
+    </div>
+
+    <!-- Label -->
+    <p class="label">// Scan to view portfolio</p>
+
+    <!-- URL -->
+    <p class="url">kuldeep562.github.io/portfolio</p>
+
+    <!-- Tags -->
+    <div class="tags">
+      <span class="tag">AI/ML</span>
+      <span class="tag">Computer Vision</span>
+      <span class="tag">LLM</span>
+      <span class="tag">Edge ML</span>
+    </div>
+
+    <!-- CTA -->
+    <a class="cta" href="https://kuldeep562.github.io/portfolio" target="_blank" rel="noopener">
+      Open Portfolio →
+    </a>
+  </div>
+</body>
+</html>

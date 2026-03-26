@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Download QR — Portfolio</title>
+  <style>
+    body {
+      background: #0a0a0a;
+      color: #e8e8e8;
+      font-family: system-ui, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      gap: 24px;
+    }
+    img { display: block; }
+    a {
+      color: #00c8ff;
+      text-decoration: none;
+      font-size: 14px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <img
+    id="qr"
+    src="https://api.qrserver.com/v1/create-qr-code/?size=320x320&data=https://kuldeep562.github.io/portfolio&bgcolor=ffffff&color=000000&margin=1&qzone=1"
+    alt="QR Code"
+    width="320"
+    height="320"
+  />
+  <a id="download-link" download="portfolioQR.png" href="#">
+    Right-click the image above → Save image as "portfolioQR.png"
+  </a>
+  <script>
+    const link = document.getElementById('download-link')
+    const img = document.getElementById('qr')
+
+    img.onload = () => {
+      // Draw QR onto canvas then auto-download
+      const canvas = document.createElement('canvas')
+      canvas.width = 320
+      canvas.height = 320
+      const ctx = canvas.getContext('2d')
+      ctx.fillStyle = '#ffffff'
+      ctx.fillRect(0, 0, 320, 320)
+      ctx.drawImage(img, 0, 0)
+      const dataUrl = canvas.toDataURL('image/png')
+      link.href = dataUrl
+      link.download = 'portfolioQR.png'
+      link.textContent = 'Click here to download portfolioQR.png'
+      // Trigger download immediately
+      const a = document.createElement('a')
+      a.href = dataUrl
+      a.download = 'portfolioQR.png'
+      a.click()
+    }
+  </script>
+</body>
+</html>

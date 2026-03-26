@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <rect width="32" height="32" rx="6" fill="#030303"/>
+  <rect x="1" y="1" width="30" height="30" rx="5" fill="none" stroke="#1e1e1e" stroke-width="1"/>
+  <text x="16" y="22" font-family="monospace" font-size="14" font-weight="800" fill="#00ff88" text-anchor="middle" letter-spacing="1">KS</text>
+  <circle cx="26" cy="8" r="3" fill="#00ff88" opacity="0.8">
+    <animate attributeName="opacity" values="0.8;0.2;0.8" dur="2s" repeatCount="indefinite"/>
+    <animate attributeName="r" values="3;5;3" dur="2s" repeatCount="indefinite"/>
+  </circle>
+</svg>
