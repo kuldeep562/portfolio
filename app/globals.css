@@ -88,6 +88,7 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  overscroll-behavior: contain;
 }
 
 body {
@@ -98,6 +99,15 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Mobile Safari address bar space */
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* Ensure html also has min-height for iOS Safari */
+html {
+  min-height: 100%;
+  min-height: 100dvh;
 }
 
 /* Custom scrollbar */
@@ -2754,6 +2764,52 @@ body {
 }
 
 /* ================================
+   PLATFORM & DEVICE FIXES
+   ================================ */
+
+/* iOS Safari: prevent rubber-banding pull-to-refresh on the page body */
+body {
+  overscroll-behavior-y: none;
+}
+
+/* iOS Safari: remove tap delay on all interactive elements */
+a, button, [role="button"], [tabindex="0"] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+/* iOS Safari: smooth scrolling with momentum */
+.scrollable {
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+}
+
+/* Android Chrome: disable pinch-zoom on the app shell to prevent
+   accidental zoom on double-tap of nav items / buttons */
+.app-shell {
+  touch-action: pan-y;
+}
+
+/* Respect safe area insets for notched devices (iPhone X+) */
+.app-shell {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Prevent iOS from auto-zooming in on form inputs / select fields
+   (set minimum font to 16px on inputs) */
+input, select, textarea {
+  font-size: 16px;
+}
+
+/* Prevent iOS Safari from scaling up font sizes */
+@media screen and (max-width: 768px) {
+  body {
+    -webkit-text-size-adjust: 100%;
+  }
+}
+
+/* ================================
    RESPONSIVE — TABLET (768–1024px)
    ================================ */
 @media (max-width: 1024px) {
@@ -2839,6 +2895,21 @@ body {
 
   .system-arch-diagram {
     grid-template-columns: 1fr;
+  }
+
+  /* System pipeline: wrap to column on smaller tablets */
+  .system-pipeline-flow {
+    flex-direction: column;
+    overflow-x: visible;
+  }
+
+  .system-pipeline-step {
+    width: 100%;
+  }
+
+  /* Prevent text/element overflow in featured cards */
+  .featured-project-info {
+    min-width: 0;
   }
 }
 
@@ -2993,13 +3064,39 @@ body {
     right: 12px;
     left: 12px;
     width: auto;
-    bottom: 76px;
+    bottom: calc(76px + env(safe-area-inset-bottom));
     max-height: calc(100vh - 100px);
   }
 
   /* Main content needs bottom padding for bottom nav */
   .main-content {
     padding-bottom: 0;
+  }
+
+  /* System pipeline: column layout on mobile to prevent overflow */
+  .system-pipeline-flow {
+    flex-direction: column;
+    overflow-x: visible;
+  }
+
+  .system-pipeline-step {
+    width: 100%;
+  }
+
+  /* Prevent overflow in featured cards and stacks */
+  .featured-project-info,
+  .featured-project-stack,
+  .featured-project-pipeline {
+    min-width: 0;
+    overflow-x: auto;
+  }
+
+  /* Ensure all grid children don't overflow */
+  .featured-card,
+  .project-card,
+  .terminal-card {
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 }
 
@@ -3011,6 +3108,42 @@ body {
   .hero-ctas .btn-secondary {
     padding: 12px 16px;
     font-size: 13px;
+  }
+}
+
+/* ================================
+   RESPONSIVE — LANDSCAPE PHONES (max-height ≤ 500px)
+   Compact hero layout when phone is rotated to landscape.
+   ================================ */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero-section {
+    min-height: auto;
+    padding-top: 56px;
+    padding-bottom: 64px;
+  }
+
+  .hero-name {
+    font-size: clamp(28px, 6vw, 44px);
+  }
+
+  .hero-headline {
+    font-size: clamp(16px, 4vw, 22px);
+  }
+
+  .hero-proof-line {
+    display: none;
+  }
+
+  .hero-availability {
+    display: none;
+  }
+
+  .hero-scroll-hint {
+    display: none;
+  }
+
+  .hero-metrics {
+    display: none;
   }
 }
 
