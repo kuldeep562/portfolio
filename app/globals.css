@@ -2810,60 +2810,16 @@ input, select, textarea {
 }
 
 /* ================================
-   RESPONSIVE — TABLET (768–1024px)
-   ================================ */
-@media (max-width: 1024px) {
-  :root {
-    --content-padding-x: 40px;
-    --section-padding-y: 72px;
-  }
-
-  .main-content {
-    padding-top: 60px;
-  }
-
-  .top-nav {
-    display: flex;
-  }
-
-  .mobile-bottom-nav {
-    display: none;
-  }
-
-  .featured-project-card {
-    grid-template-columns: 1fr;
-  }
-
-  .featured-project-icon {
-    display: none;
-  }
-
-  .experience-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .hero-section {
-    padding-top: 80px;
-  }
-
-  .hero-headline {
-    font-size: clamp(24px, 5vw, 40px);
-  }
-
-  .hero-name {
-    font-size: clamp(36px, 7vw, 60px);
-  }
-}
-
-/* ================================
    RESPONSIVE — TABLET (769px–1024px)
+   Landscape tablets and small laptops (iPad, Surface Go, etc.)
    ================================ */
 @media (max-width: 1024px) and (min-width: 769px) {
   :root {
     --content-padding-x: 48px;
-    --section-padding-y: 80px;
+    --section-padding-y: 72px;
   }
 
+  /* Top nav stays visible, tighten it */
   .top-nav {
     padding: 0 20px;
   }
@@ -2873,6 +2829,53 @@ input, select, textarea {
     font-size: 11px;
   }
 
+  /* Hero — comfortable on tablet */
+  .hero-section {
+    padding-top: 80px;
+  }
+
+  .hero-name {
+    font-size: clamp(36px, 7vw, 60px);
+  }
+
+  .hero-headline {
+    font-size: clamp(24px, 5vw, 40px);
+  }
+
+  .hero-proof-line {
+    font-size: 11px;
+    flex-wrap: wrap;
+  }
+
+  .hero-ctas {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .hero-ctas .btn-primary,
+  .hero-ctas .btn-secondary {
+    flex: 1 1 auto;
+    width: auto;
+    justify-content: center;
+  }
+
+  .hero-metrics {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Sections — use full padding on tablet */
+  .featured-projects-section,
+  .projects-section,
+  .system-overview-section,
+  .experience-section,
+  .skills-section,
+  .contact-section {
+    padding-left: var(--content-padding-x);
+    padding-right: var(--content-padding-x);
+  }
+
+  /* Featured project: collapse icon column, keep card layout */
   .featured-project-card {
     grid-template-columns: 1fr;
   }
@@ -2881,45 +2884,67 @@ input, select, textarea {
     display: none;
   }
 
+  .featured-card {
+    padding: 28px;
+  }
+
+  /* Projects grid — 2 columns */
   .projects-grid {
     grid-template-columns: 1fr 1fr;
   }
 
+  /* System pipeline — horizontal scroll on tablet */
+  .system-pipeline-flow {
+    flex-direction: row;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    gap: 16px;
+  }
+
+  .system-pipeline-flow::-webkit-scrollbar {
+    display: none;
+  }
+
+  .system-pipeline-step {
+    min-width: 200px;
+    flex: 0 0 200px;
+  }
+
+  /* Skills — 2 columns */
   .skills-grid {
     grid-template-columns: 1fr 1fr;
   }
 
+  /* Experience — 1 column, larger gap */
   .experience-layout {
     grid-template-columns: 1fr;
+    gap: 40px;
   }
 
-  .system-arch-diagram {
-    grid-template-columns: 1fr;
+  /* Contact CTAs — row on tablet */
+  .contact-ctas {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: auto;
   }
 
-  /* System pipeline: wrap to column on smaller tablets */
-  .system-pipeline-flow {
-    flex-direction: column;
-    overflow-x: visible;
-  }
-
-  .system-pipeline-step {
-    width: 100%;
-  }
-
-  /* Prevent text/element overflow in featured cards */
-  .featured-project-info {
-    min-width: 0;
+  .contact-ctas .btn-primary,
+  .contact-ctas .btn-secondary {
+    flex: 1 1 auto;
+    width: auto;
+    justify-content: center;
   }
 }
 
 /* ================================
    RESPONSIVE — MOBILE (<768px)
+   iPhone SE, iPhone 14, Android phones
    ================================ */
 @media (max-width: 768px) {
   :root {
     --content-padding-x: 20px;
-    --section-padding-y: 56px;
+    --section-padding-y: 48px;
   }
 
   /* Top nav hidden on mobile */
@@ -2932,35 +2957,43 @@ input, select, textarea {
     display: flex;
   }
 
-  /* Hero — proper mobile layout */
+  /* ---- HERO ---- */
   .hero-section {
-    min-height: 100dvh;
     min-height: 100svh;
     padding-top: 56px;
-    padding-bottom: 76px;
+    padding-bottom: 80px;
+    padding-left: var(--content-padding-x);
+    padding-right: var(--content-padding-x);
     justify-content: flex-start;
+    align-items: flex-start;
   }
 
   .hero-content {
+    width: 100%;
     max-width: 100%;
   }
 
   .hero-name {
-    font-size: clamp(38px, 11vw, 52px);
+    font-size: clamp(36px, 12vw, 52px);
     line-height: 1.05;
     word-break: break-word;
   }
 
+  .hero-role {
+    font-size: clamp(13px, 3.5vw, 16px);
+  }
+
   .hero-headline {
-    font-size: clamp(20px, 6vw, 28px);
-    line-height: 1.25;
+    font-size: clamp(18px, 5.5vw, 26px);
+    line-height: 1.3;
   }
 
   .hero-proof-line {
     font-size: 11px;
     flex-direction: column;
     align-items: flex-start;
-    gap: 4px;
+    gap: 2px;
+    flex-wrap: wrap;
   }
 
   .hero-proof-sep {
@@ -2978,39 +3011,143 @@ input, select, textarea {
     width: 100%;
     justify-content: center;
     padding: 14px 20px;
+    font-size: 14px;
   }
 
   .hero-metrics {
     grid-template-columns: repeat(2, 1fr);
     border-radius: 8px;
+    gap: 0;
   }
 
   .hero-metric {
-    padding: 12px 8px;
+    padding: 10px 8px;
   }
 
   .hero-metric-value {
-    font-size: 20px;
-  }
-
-  /* Featured projects */
-  .featured-card {
-    padding: 24px;
-    border-radius: 12px;
-  }
-
-  .featured-project-name {
     font-size: 18px;
   }
 
-  /* Projects grid */
-  .projects-grid {
-    grid-template-columns: 1fr;
+  .hero-metric-label {
+    font-size: 10px;
   }
 
+  .hero-availability {
+    font-size: 11px;
+  }
+
+  .hero-scroll-hint {
+    display: none;
+  }
+
+  /* ---- ALL SECTIONS — use CSS var padding ---- */
+  .featured-projects-section,
+  .projects-section,
+  .system-overview-section,
+  .experience-section,
+  .skills-section,
+  .contact-section {
+    padding-left: var(--content-padding-x);
+    padding-right: var(--content-padding-x);
+    padding-top: var(--section-padding-y);
+  }
+
+  /* Section headers */
+  .section-header-block {
+    margin-bottom: 32px;
+  }
+
+  .section-title {
+    font-size: clamp(22px, 6vw, 32px);
+    margin-bottom: 24px;
+  }
+
+  /* ---- FEATURED PROJECTS ---- */
+  .featured-grid {
+    gap: 16px;
+  }
+
+  .featured-card {
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .featured-project-card {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .featured-project-icon {
+    display: none;
+  }
+
+  .featured-project-name {
+    font-size: 17px;
+  }
+
+  .featured-project-desc {
+    font-size: 13px;
+  }
+
+  .featured-project-header {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .featured-impact-row {
+    padding: 8px 12px;
+    border-radius: 6px;
+    gap: 8px;
+  }
+
+  .featured-impact-value {
+    font-size: 18px;
+  }
+
+  .featured-impact-label {
+    font-size: 11px;
+  }
+
+  .featured-project-stack {
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .stack-pill {
+    font-size: 10px;
+    padding: 3px 8px;
+  }
+
+  .featured-project-pipeline {
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .pipeline-node {
+    font-size: 9px;
+    padding: 3px 7px;
+  }
+
+  .featured-project-actions {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .featured-action-btn {
+    font-size: 11px;
+    padding: 8px 12px;
+  }
+
+  .featured-card-expanded {
+    display: none; /* collapse on mobile to save space */
+  }
+
+  /* ---- PROJECTS GRID ---- */
   .projects-header {
     flex-direction: column;
     align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 28px;
   }
 
   .projects-filter-tabs {
@@ -3018,21 +3155,173 @@ input, select, textarea {
     gap: 6px;
   }
 
-  /* Skills grid */
-  .skills-grid {
-    grid-template-columns: 1fr;
+  .filter-tab {
+    font-size: 11px;
+    padding: 5px 12px;
   }
 
-  /* System arch */
-  .system-arch-diagram {
+  .projects-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .project-card {
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .project-card-name {
+    font-size: 15px;
+  }
+
+  .project-card-desc {
+    font-size: 12px;
+  }
+
+  /* ---- SYSTEM OVERVIEW ---- */
+  .system-pipeline-flow {
+    flex-direction: column;
+    overflow-x: visible;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .system-pipeline-step {
+    width: 100%;
+    min-width: unset;
+    flex: unset;
+  }
+
+  .system-pipeline-step-inner {
+    padding: 16px;
+  }
+
+  .system-pipeline-arrow {
+    transform: rotate(90deg);
+    justify-content: center;
+    padding: 4px 0;
   }
 
   .system-stats-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
   }
 
-  /* Contact */
+  .system-stat-card {
+    padding: 16px;
+    border-radius: 10px;
+  }
+
+  .system-stat-value {
+    font-size: 22px;
+  }
+
+  /* ---- EXPERIENCE ---- */
+  .experience-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .experience-timeline {
+    gap: 0;
+  }
+
+  .experience-item {
+    padding-left: 20px;
+  }
+
+  .experience-item-title {
+    font-size: 15px;
+  }
+
+  .experience-item-date {
+    font-size: 11px;
+  }
+
+  .experience-item-company {
+    font-size: 12px;
+  }
+
+  .experience-item-points {
+    gap: 6px;
+  }
+
+  .experience-point {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .experience-sidebar {
+    gap: 16px;
+  }
+
+  .experience-sidebar-card {
+    padding: 16px;
+    border-radius: 10px;
+  }
+
+  .experience-sidebar-title {
+    font-size: 11px;
+    margin-bottom: 12px;
+  }
+
+  .edu-sidebar-degree {
+    font-size: 13px;
+  }
+
+  .edu-sidebar-school,
+  .edu-sidebar-date {
+    font-size: 11px;
+  }
+
+  .exp-story-para {
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  .cert-item {
+    font-size: 11px;
+    gap: 8px;
+  }
+
+  /* ---- SKILLS ---- */
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .skill-category {
+    padding: 16px;
+    border-radius: 10px;
+  }
+
+  .skill-category-name {
+    font-size: 14px;
+  }
+
+  .skill-count {
+    font-size: 10px;
+  }
+
+  .skill-tags {
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .skill-tag {
+    font-size: 11px;
+    padding: 4px 10px;
+  }
+
+  /* ---- CONTACT ---- */
+  .contact-inner {
+    padding: 0;
+  }
+
+  .contact-tagline {
+    font-size: 14px;
+  }
+
   .contact-ctas {
     flex-direction: column;
     width: 100%;
@@ -3043,60 +3332,28 @@ input, select, textarea {
   .contact-ctas .btn-secondary {
     width: 100%;
     justify-content: center;
+    padding: 14px 20px;
+    font-size: 14px;
   }
 
-  /* Section titles */
-  .section-title {
-    font-size: clamp(24px, 6vw, 36px);
-    margin-bottom: 32px;
-  }
-
-  /* Footer */
   .footer {
     flex-direction: column;
     text-align: center;
-    gap: 12px;
+    gap: 8px;
     padding: 24px var(--content-padding-x);
   }
 
-  /* Chatbot panel */
+  .footer-brand {
+    font-size: 11px;
+  }
+
+  /* ---- CHATBOT ---- */
   .chatbot-panel {
     right: 12px;
     left: 12px;
     width: auto;
     bottom: calc(76px + env(safe-area-inset-bottom));
-    max-height: calc(100vh - 100px);
-  }
-
-  /* Main content needs bottom padding for bottom nav */
-  .main-content {
-    padding-bottom: 0;
-  }
-
-  /* System pipeline: column layout on mobile to prevent overflow */
-  .system-pipeline-flow {
-    flex-direction: column;
-    overflow-x: visible;
-  }
-
-  .system-pipeline-step {
-    width: 100%;
-  }
-
-  /* Prevent overflow in featured cards and stacks */
-  .featured-project-info,
-  .featured-project-stack,
-  .featured-project-pipeline {
-    min-width: 0;
-    overflow-x: auto;
-  }
-
-  /* Ensure all grid children don't overflow */
-  .featured-card,
-  .project-card,
-  .terminal-card {
-    overflow-wrap: break-word;
-    word-break: break-word;
+    max-height: calc(100svh - 120px);
   }
 }
 
