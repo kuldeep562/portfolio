@@ -855,8 +855,8 @@ body {
   left: 0;
   right: 0;
   height: 64px;
-  background: transparent;
-  border-top: none;
+  background: var(--bg-surface-0);
+  border-top: 1px solid var(--border);
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
   z-index: 100;
@@ -2800,6 +2800,49 @@ body {
 }
 
 /* ================================
+   RESPONSIVE — TABLET (769px–1024px)
+   ================================ */
+@media (max-width: 1024px) and (min-width: 769px) {
+  :root {
+    --content-padding-x: 48px;
+    --section-padding-y: 80px;
+  }
+
+  .top-nav {
+    padding: 0 20px;
+  }
+
+  .topnav-link {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+
+  .featured-project-card {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-project-icon {
+    display: none;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .experience-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .system-arch-diagram {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ================================
    RESPONSIVE — MOBILE (<768px)
    ================================ */
 @media (max-width: 768px) {
@@ -2899,6 +2942,11 @@ body {
     align-items: flex-start;
   }
 
+  .projects-filter-tabs {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
   /* Skills grid */
   .skills-grid {
     grid-template-columns: 1fr;
@@ -2952,6 +3000,17 @@ body {
   /* Main content needs bottom padding for bottom nav */
   .main-content {
     padding-bottom: 0;
+  }
+}
+
+/* ================================
+   RESPONSIVE — VERY SMALL PHONES (<375px)
+   ================================ */
+@media (max-width: 375px) {
+  .hero-ctas .btn-primary,
+  .hero-ctas .btn-secondary {
+    padding: 12px 16px;
+    font-size: 13px;
   }
 }
 
