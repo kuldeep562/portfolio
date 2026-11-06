@@ -1,0 +1,11 @@
+.projects-filter { display:flex; flex-wrap:wrap; align-items:end; gap:14px; margin:0 0 10px; }
+.projects-filter label { display:flex; flex-direction:column; gap:7px; color:var(--muted); font-size:12px; font-weight:600; }
+.projects-filter label { width:min(100%, 260px); }
+.projects-filter select { width:100%; min-height:44px; padding:10px 12px; color:var(--text); background:var(--surface); border:1px solid var(--border); border-radius:8px; font:inherit; }
+.projects-filter button { min-height:44px; padding:10px 14px; color:var(--accent); background:transparent; border:1px solid var(--border); border-radius:8px; cursor:pointer; font:inherit; }
+.projects-filter :is(select, button):focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+.projects-filter-count, .projects-filter-empty { color:var(--muted); font-size:13px; }
+.projects-filter-count { margin:0 0 24px; }
+.projects-filter-empty { padding:20px 0; }
+.case-study[hidden], .project-archive-item[hidden] { display:none; }
+@media (max-width: 600px) { .projects-filter label { flex:1 1 100%; } }

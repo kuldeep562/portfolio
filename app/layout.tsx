@@ -1,84 +1,42 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, Syne, JetBrains_Mono } from 'next/font/google'
+import { Inter } from 'next/font/google'
 import './globals.css'
+import ThemeBootstrap from '@/components/providers/ThemeBootstrap'
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' })
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 5,
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#fafafa' },
-    { media: '(prefers-color-scheme: dark)', color: '#030303' },
-  ],
+  themeColor: '#ffffff',
 }
-
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-geist',
-  display: 'swap',
-})
-
-const syne = Syne({
-  subsets: ['latin'],
-  variable: '--font-syne',
-  display: 'swap',
-})
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  variable: '--font-jetbrains',
-  display: 'swap',
-})
 
 export const metadata: Metadata = {
-  title: 'Kuldeep Solanki — AI/ML Engineer',
+  metadataBase: new URL('https://kuldeep562.github.io/portfolio/'),
+  title: 'Kuldeep Solanki — AI/ML & Full-Stack Engineer',
   description:
-    'AI/ML Engineer specializing in LLM fine-tuning, edge deployment, and computer vision for healthcare. Building production AI systems that actually ship.',
-  keywords: ['AI', 'ML', 'Machine Learning', 'Deep Learning', 'NLP', 'Computer Vision', 'Edge ML', 'Healthcare AI', 'Portfolio'],
+    'AI/ML Engineer building practical healthcare AI, speech systems, computer vision and full-stack software integrations.',
   authors: [{ name: 'Kuldeep Solanki' }],
   openGraph: {
-    title: 'Kuldeep Solanki — AI/ML Engineer',
-    description: 'Building production AI systems that ship in healthcare. YOLO on Raspberry Pi, 93% precision, 30K+ records.',
+    title: 'Kuldeep Solanki — AI/ML & Full-Stack Engineer',
+    description: 'Engineering practical AI systems for real-world problems.',
     type: 'website',
-    locale: 'en_US',
+    locale: 'en_IN',
+    url: 'https://kuldeep562.github.io/portfolio/',
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'Kuldeep Solanki — AI/ML Engineer',
-    description: 'Building production AI systems that ship in healthcare.',
+    card: 'summary',
+    title: 'Kuldeep Solanki — AI/ML & Full-Stack Engineer',
+    description: 'Engineering practical AI systems for real-world problems.',
   },
-  icons: {
-    icon: '/favicon.svg',
-  },
+  icons: { icon: '/portfolio/favicon.svg' },
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var theme = localStorage.getItem('portfolio-theme');
-                  if (!theme) {
-                    theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                  }
-                  if (theme === 'light') {
-                    document.documentElement.classList.add('light');
-                  }
-                } catch(e) {}
-              })();
-            `,
-          }}
-        />
-      </head>
-      <body className={`${inter.variable} ${syne.variable} ${jetbrainsMono.variable}`}>
+      <body className={inter.variable}>
+        <ThemeBootstrap />
         {children}
       </body>
     </html>

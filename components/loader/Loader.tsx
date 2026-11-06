@@ -17,6 +17,7 @@ export default function Loader({ onComplete }: LoaderProps) {
   }
 
   useEffect(() => {
+    const timeouts = tRef.current
     // Phase 0 → black (0ms)
     // Phase 1 → name appears (300ms)
     // Phase 2 → subtitle (700ms)
@@ -40,7 +41,7 @@ export default function Loader({ onComplete }: LoaderProps) {
       }
     }, 2800)
 
-    return () => tRef.current.forEach(clearTimeout)
+    return () => timeouts.forEach(clearTimeout)
   }, [onComplete])
 
   const handleSkip = () => {

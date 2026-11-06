@@ -1,11 +1,5 @@
+import Link from 'next/link'
+
 export default function NotFound() {
-  return (
-    <div className="not-found-container">
-      <div className="not-found-code">404</div>
-      <div className="not-found-message">[ ERROR: PAGE_NOT_FOUND ]</div>
-      <a href="/" className="not-found-link">
-        ← Return to home
-      </a>
-    </div>
-  )
+  return <main className="not-found"><span className="eyebrow">404 · PAGE NOT FOUND</span><h1>This page isn’t here.</h1><p>The link may have moved, or the address may be incorrect.</p><Link className="button button-dark" href="/">Return home</Link></main>
 }

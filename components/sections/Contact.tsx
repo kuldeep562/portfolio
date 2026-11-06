@@ -10,7 +10,7 @@ export default function Contact() {
     <section id="contact" className="contact-section" ref={ref}>
       <div className={`contact-inner reveal ${visible ? 'visible' : ''}`}>
         <span className="section-label" style={{ textAlign: 'center', display: 'block' }}>
-          // Let's Connect
+          {'// Let’s Connect'}
         </span>
 
         <div className="contact-availability contact-avail-top">
@@ -19,7 +19,7 @@ export default function Contact() {
         </div>
 
         <p className="contact-tagline">
-          Whether it's a production ML system, a bold research idea, or just a conversation about AI — my inbox is open.
+          Whether it’s a production ML system, a bold research idea, or just a conversation about AI — my inbox is open.
         </p>
 
         <div className="contact-ctas">

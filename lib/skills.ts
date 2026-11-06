@@ -1,75 +1,45 @@
 export interface SkillCategory {
-  id: string
   name: string
-  color: string
-  icon: string
+  description: string
   skills: string[]
+  projects: string[]
 }
 
 export const skillCategories: SkillCategory[] = [
   {
-    id: 'languages',
-    name: 'Languages & Frameworks',
-    color: 'cyan',
-    icon: 'code',
-    skills: ['Python', 'SQL', 'C++', 'JavaScript', 'TypeScript', 'TensorFlow', 'PyTorch', 'FastAPI', 'LangChain'],
+    name: 'AI / ML Engineering',
+    description: 'Model development, evaluation and integration into practical systems.',
+    skills: ['PyTorch', 'Transformers', 'MMDetection', 'YOLO', 'ONNX', 'TensorRT'],
+    projects: ['Medicine Detection on Jetson', 'ConsultAI', 'Edge AI Optimization'],
   },
   {
-    id: 'ml-ai',
-    name: 'ML / AI',
-    color: 'purple',
-    icon: 'brain',
-    skills: [
-      'YOLO',
-      'MMDetection',
-      'LLM Fine-tuning',
-      'PEFT/LoRA',
-      'ONNX Runtime',
-      'Hugging Face',
-      'Scikit-learn',
-      'OpenCV',
-      'Computer Vision',
-      'NLP',
-      'Speech AI',
-      'Edge ML',
-    ],
+    name: 'Clinical & Healthcare Systems',
+    description: 'Structured clinical workflows, terminology, safety checks and data exchange.',
+    skills: ['ICD-10', 'SNOMED CT', 'FHIR', 'HL7', 'ASTM', 'Clinical workflow design'],
+    projects: ['ConsultAI', 'Swasth-Saarthi', 'LIS UI & Analyzer Integration'],
   },
   {
-    id: 'models',
-    name: 'Models & Platforms',
-    color: 'green',
-    icon: 'cpu',
-    skills: [
-      'LLaMA 3',
-      'Mistral',
-      'XLM-R',
-      'Faster-Whisper',
-      'CLIP',
-      'SAM',
-      'mT5',
-      'Bloom',
-      'Phi',
-      'CodeLLaMA',
-      'MarianMT',
-    ],
+    name: 'Speech AI',
+    description: 'Provider integration, transcription routing and streaming interfaces.',
+    skills: ['Whisper', 'Faster-Whisper', 'IndicConformer', 'WebSockets', 'FastAPI'],
+    projects: ['Voxmesh', 'ConsultAI', 'Swasth-Saarthi'],
   },
   {
-    id: 'deployment',
-    name: 'Deployment & Tools',
-    color: 'amber',
-    icon: 'server',
-    skills: [
-      'Ollama',
-      'Hugging Face',
-      'Docker',
-      'Raspberry Pi',
-      'ONNX',
-      'Git',
-      'Gradio',
-      'FastAPI',
-      'PostgreSQL',
-      'SQLite',
-      'WebSocket',
-    ],
+    name: 'Backend & Full-Stack',
+    description: 'Application APIs, persistence, user interfaces and service integration.',
+    skills: ['Python', 'Django', 'FastAPI', 'DRF', 'PostgreSQL', 'Redis', 'React'],
+    projects: ['ConsultAI', 'Voxmesh', 'NLP to SQL', 'Yellow/Green Dashboard'],
+  },
+  {
+    name: 'Inference & Edge Systems',
+    description: 'Model export, device-specific optimization and performance investigation.',
+    skills: ['ONNX', 'TensorRT', 'CUDA', 'Jetson', 'Raspberry Pi', 'C++'],
+    projects: ['Medicine Detection on Jetson', 'Edge AI Optimization'],
+  },
+  {
+    name: 'Automation & Integration',
+    description: 'Workflow automation, analyzer communication and system operations.',
+    skills: ['ASTM', 'HL7', 'TCP/Serial', 'Docker', 'N8N', 'GitLab API'],
+    projects: ['LIS UI & Analyzer Integration', 'ETL Automation', 'Yellow/Green Dashboard'],
   },
 ]

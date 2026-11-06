@@ -1,137 +1,81 @@
 'use client'
-import { useEffect, useState } from 'react'
-import { Sun, Moon } from 'lucide-react'
-import { useActiveSection } from '@/hooks/useActiveSection'
-import { NAV_ITEMS } from '@/lib/constants'
 
-export default function TopNav() {
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark')
-  const [mounted, setMounted] = useState(false)
-  const [menuOpen, setMenuOpen] = useState(false)
-  const active = useActiveSection()
+import { useEffect, useRef, useState } from 'react'
+import { ArrowUpRight, Menu, Moon, Sun, X } from 'lucide-react'
 
+type Preference = 'auto' | 'light' | 'dark'
+const links = [['Home','#home'],['About','#about'],['Projects','#projects'],['Experience','#experience'],['Expertise','#expertise'],['Contact','#contact']]
+
+export default function TopNav({ activeSection }: { activeSection: string }) {
+  const [theme, setTheme] = useState<'light'|'dark'>('light')
+  const [preference, setPreference] = useState<Preference>('auto')
+  const [open, setOpen] = useState(false)
+  const menuButton = useRef<HTMLButtonElement>(null)
   useEffect(() => {
-    setMounted(true)
-    const saved = localStorage.getItem('portfolio-theme') as 'dark' | 'light' | null
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-    const initial = saved || (prefersDark ? 'dark' : 'light')
-    setTheme(initial)
-    document.documentElement.classList.toggle('light', initial === 'light')
+    const pref = (document.documentElement.dataset.themePreference || 'auto') as Preference
+    setPreference(pref)
+    setTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light')
   }, [])
-
-  const toggleTheme = () => {
-    const next = theme === 'dark' ? 'light' : 'dark'
-    setTheme(next)
-    localStorage.setItem('portfolio-theme', next)
-    document.documentElement.classList.toggle('light', next === 'light')
+  useEffect(() => {
+    const sync = () => {
+      const root = document.documentElement
+      let stored: string | null = root.dataset.themePreference || null
+      try { stored = localStorage.getItem('portfolio-theme-preference') } catch { /* storage may be unavailable */ }
+      const pref: Preference = stored === 'light' || stored === 'dark' ? stored : 'auto'
+      const hour = new Date().getHours()
+      const resolved = pref === 'auto' ? (hour >= 6 && hour < 18 ? 'light' : 'dark') : pref
+      root.dataset.themePreference = pref
+      root.dataset.theme = resolved
+      setPreference(pref)
+      setTheme(resolved)
+    }
+    const onStorage = (event: StorageEvent) => {
+      if (event.key === 'portfolio-theme-preference' || event.key === null) sync()
+    }
+    const timer = window.setInterval(() => {
+      if (document.documentElement.dataset.themePreference === 'auto') {
+        const hour = new Date().getHours()
+        const resolved = hour >= 6 && hour < 18 ? 'light' : 'dark'
+        document.documentElement.dataset.theme = resolved
+        setTheme(resolved)
+      }
+    }, 30000)
+    window.addEventListener('storage', onStorage)
+    document.addEventListener('visibilitychange', sync)
+    return () => {
+      window.clearInterval(timer)
+      window.removeEventListener('storage', onStorage)
+      document.removeEventListener('visibilitychange', sync)
+    }
+  }, [])
+  useEffect(() => {
+    if (!open) return
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setOpen(false)
+        menuButton.current?.focus()
+      }
+    }
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [open])
+  const choose = (next: Preference) => {
+    setPreference(next)
+    try { localStorage.setItem('portfolio-theme-preference', next) } catch { /* storage may be unavailable */ }
+    const resolved = next === 'auto' ? (new Date().getHours() >= 6 && new Date().getHours() < 18 ? 'light' : 'dark') : next
+    setTheme(resolved)
+    document.documentElement.dataset.themePreference = next
+    document.documentElement.dataset.theme = resolved
   }
+  const cycle = () => choose(preference === 'auto' ? 'light' : preference === 'light' ? 'dark' : 'auto')
 
-  const handleNavClick = (_id: string) => {
-    setMenuOpen(false)
-  }
-
-  if (!mounted) return null
-
-  return (
-    <>
-      {/* Desktop Top Nav */}
-      <nav className="top-nav" aria-label="Main navigation">
-        {/* Left: Monogram */}
-        <a href="#hero" className="topnav-monogram" aria-label="Kuldeep Solanki — home">
-          KS
-        </a>
-
-        {/* Center: Nav links */}
-        <div className="topnav-links">
-          {NAV_ITEMS.map((item) => (
-            <a
-              key={item.id}
-              href={item.href}
-              onClick={() => handleNavClick(item.id)}
-              className={`topnav-link${active === item.id ? ' active' : ''}`}
-              aria-current={active === item.id ? 'page' : undefined}
-            >
-              {item.label}
-              {active === item.id && <span className="topnav-link-dot" />}
-            </a>
-          ))}
-        </div>
-
-        {/* Right: Theme + Status */}
-        <div className="topnav-right">
-          <button className="topnav-icon-btn" onClick={toggleTheme} aria-label="Toggle theme">
-            {theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
-          </button>
-          <div className="topnav-status" title="Open to work">
-            <span className="topnav-status-dot" />
-            <span className="topnav-status-label">Open</span>
-          </div>
-        </div>
-      </nav>
-
-      {/* Mobile Bottom Nav */}
-      <nav className="mobile-bottom-nav" aria-label="Main navigation">
-        {NAV_ITEMS.map((item) => (
-          <a
-            key={item.id}
-            href={item.href}
-            onClick={() => handleNavClick(item.id)}
-            className={`mobile-nav-item${active === item.id ? ' active' : ''}`}
-            aria-current={active === item.id ? 'page' : undefined}
-          >
-            <MobileNavIcon id={item.id} />
-            <span className="mobile-nav-label">{item.label}</span>
-            {active === item.id && <span className="mobile-nav-indicator" />}
-          </a>
-        ))}
-      </nav>
-    </>
-  )
-}
-
-function MobileNavIcon({ id }: { id: string }) {
-  const icons: Record<string, React.ReactNode> = {
-    hero: (
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-        <path d="M3 9L9 3L15 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M5 7V14H13V7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
-    featured: (
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-        <rect x="2" y="2" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.5"/>
-        <rect x="10" y="2" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.5"/>
-        <rect x="2" y="10" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.5"/>
-        <rect x="10" y="10" width="6" height="6" rx="1" stroke="currentColor" strokeWidth="1.5"/>
-      </svg>
-    ),
-    systems: (
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-        <circle cx="9" cy="9" r="2.5" stroke="currentColor" strokeWidth="1.5"/>
-        <path d="M9 2V4.5M9 13.5V16M2 9H4.5M13.5 9H16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-      </svg>
-    ),
-    experience: (
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-        <rect x="2" y="4" width="14" height="10" rx="1.5" stroke="currentColor" strokeWidth="1.5"/>
-        <path d="M6 4V3a1 1 0 011-1h4a1 1 0 011 1v1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-        <path d="M6 9.5H12M6 12.5H10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-      </svg>
-    ),
-    skills: (
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-        <path d="M5 14L2 16L5 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M13 4L16 2L10 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M16 13L14 16L8 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M2 5L4 2L10 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
-    contact: (
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-        <rect x="2" y="5" width="14" height="10" rx="1.5" stroke="currentColor" strokeWidth="1.5"/>
-        <path d="M2 6L9 11L16 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
-  }
-  return <>{icons[id] || null}</>
+  return <header className="site-header"><nav className="nav-shell" aria-label="Main navigation">
+    <a className="brand" href="#home" aria-label="Kuldeep Solanki home"><span className="brand-mark">KS</span><span>Kuldeep Solanki<span className="brand-period">.</span></span></a>
+    <div id="main-nav-links" className={`nav-links${open?' is-open':''}`}>{links.map(([label,href])=><a key={href} href={href} aria-current={activeSection === href.slice(1) ? 'location' : undefined} className={activeSection === href.slice(1) ? 'is-active' : ''} onClick={()=>setOpen(false)}>{label}</a>)}</div>
+    <div className="nav-actions"><button className="icon-button theme-toggle" onClick={cycle} aria-label={`Theme preference: ${preference}. Activate to cycle preference`} title={`Theme: ${preference}`}>
+      {preference==='auto'?<span className="auto-theme-mark">A</span>:theme==='light'?<Moon size={17}/>:<Sun size={17}/>}
+    </button>
+    <a className="button button-small button-dark nav-cta" href="#contact">Get in touch <ArrowUpRight size={15}/></a>
+    <button ref={menuButton} className="icon-button menu-toggle" aria-controls="main-nav-links" aria-label={open?'Close navigation':'Open navigation'} aria-expanded={open} onClick={()=>setOpen(!open)}>{open?<X size={20}/>:<Menu size={20}/>}</button></div>
+  </nav><div className="header-rule"/></header>
 }

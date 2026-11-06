@@ -1,45 +1,36 @@
 'use client'
 import { useEffect, useState } from 'react'
 
-const SECTIONS = ['hero', 'featured', 'systems', 'experience', 'skills', 'contact']
+const SECTIONS = ['home', 'about', 'projects', 'experience', 'expertise', 'contact']
 
 export function useActiveSection(): string {
-  const [active, setActive] = useState('hero')
-
+  const [active, setActive] = useState('home')
   useEffect(() => {
-    let rafId: number
-
-    const detect = () => {
-      // Find the last section whose top is AT or ABOVE the middle of viewport
-      const midY = window.scrollY + window.innerHeight * 0.38
-      let current = 'hero'
-
+    let frame = 0
+    const update = () => {
+      frame = 0
+      const line = window.innerHeight * 0.42
+      let current = 'home'
       for (const id of SECTIONS) {
-        const el = document.getElementById(id)
-        if (!el) continue
-        const { top } = el.getBoundingClientRect()
-        const absTop = top + window.scrollY
-        // If section top is at or above the detection line, it's the active one
-        if (absTop <= midY) {
-          current = id
-        }
+        const section = document.getElementById(id)
+        if (section && section.getBoundingClientRect().top <= line) current = id
       }
-
+      if (window.scrollY > 0 && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2 && document.getElementById('contact')) current = 'contact'
       setActive(current)
     }
-
-    const onScroll = () => {
-      cancelAnimationFrame(rafId)
-      rafId = requestAnimationFrame(detect)
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update)
     }
-
-    detect()
-    window.addEventListener('scroll', onScroll, { passive: true })
+    update()
+    window.addEventListener('scroll', schedule, { passive: true })
+    window.addEventListener('resize', schedule)
+    window.addEventListener('hashchange', schedule)
     return () => {
-      window.removeEventListener('scroll', onScroll)
-      cancelAnimationFrame(rafId)
+      window.removeEventListener('scroll', schedule)
+      window.removeEventListener('resize', schedule)
+      window.removeEventListener('hashchange', schedule)
+      if (frame) cancelAnimationFrame(frame)
     }
   }, [])
-
   return active
 }
