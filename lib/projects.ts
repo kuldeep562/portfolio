@@ -61,14 +61,14 @@ export const projects: PortfolioProject[] = [
     evidence: 'WorkBook.xlsx — Projects row 17.'
   },
   {
-    slug: 'edge-optimization', name: 'Edge AI Optimization', category: 'Computer Vision', status: 'Ongoing', period: 'October — Present',
+    slug: 'edge-optimization', name: 'Edge AI Optimization', category: 'Computer Vision', status: 'Completed', period: 'October — Present',
     summary: 'Optimization and benchmarking work for vision inference across Jetson and Raspberry Pi targets.',
     contribution: 'Workbook records PyTorch-to-TensorRT work, FP16 optimization and FPS benchmarking. The portfolio avoids treating the reported device performance as a universal or independently verified benchmark.',
     technologies: ['TensorRT', 'ONNX', 'PyTorch', 'CUDA', 'Jetson'],
     evidence: 'WorkBook.xlsx — Projects row 31; Detection sheet.'
   },
   {
-    slug: 'yellow-green', name: 'Yellow/Green Deployment Dashboard', category: 'Automation', status: 'Validation needed', period: 'June — August',
+    slug: 'yellow-green', name: 'Yellow/Green Deployment Dashboard', category: 'Automation', status: 'Ongoing', period: 'June — August',
     summary: 'An internal deployment dashboard intended to automate tagging, release creation and pipeline monitoring.',
     contribution: 'Workbook describes a Node/Express and React tool with GitLab API integration, WebSocket updates and PostgreSQL persistence. It is explicitly marked backend ready / needs validation and not tested in production.',
     technologies: ['Node.js', 'Express', 'React', 'PostgreSQL', 'GitLab API', 'WebSockets'],
@@ -88,6 +88,20 @@ export const projects: PortfolioProject[] = [
     technologies: ['Camunda 8', 'BPMN', 'DMN', 'FHIR', 'HL7'],
     evidence: 'WorkBook.xlsx — Projects row 44. Design phase only.'
   },
+  {
+  slug: 'mlops',
+  name: 'MLOps',
+  category: 'Learning & Development',
+  status: 'Currently Learning',
+  summary: 'Exploring machine learning operations and production-ready ML workflows.',
+  technologies: [
+    'MLflow',
+    'Docker',
+    'CI/CD',
+    'Model Versioning',
+    'Model Monitoring'
+  ]
+}
 ]
 
 export const featuredProjects = projects.filter(project => project.featured)
