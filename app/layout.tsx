@@ -15,11 +15,11 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://kuldeep562.github.io/portfolio/'),
   title: 'Kuldeep Solanki — AI/ML & Full-Stack Engineer',
   description:
-    'AI/ML Engineer building practical healthcare AI, speech systems, computer vision and full-stack software integrations.',
+    'AI/ML engineer developing healthcare AI, computer vision, speech and LLM applications, backend services and systems integrations.',
   authors: [{ name: 'Kuldeep Solanki' }],
   openGraph: {
     title: 'Kuldeep Solanki — AI/ML & Full-Stack Engineer',
-    description: 'Engineering practical AI systems for real-world problems.',
+    description: 'Applied AI engineering across healthcare, computer vision, speech and systems integration.',
     type: 'website',
     locale: 'en_IN',
     url: 'https://kuldeep562.github.io/portfolio/',
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary',
     title: 'Kuldeep Solanki — AI/ML & Full-Stack Engineer',
-    description: 'Engineering practical AI systems for real-world problems.',
+    description: 'Applied AI engineering across healthcare, computer vision, speech and systems integration.',
   },
   icons: { icon: '/portfolio/favicon.svg' },
 }

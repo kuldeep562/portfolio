@@ -1,5 +1,13 @@
 # Full Codebase Engineering Review
 
+## PROFESSIONAL CONTENT & TECHNICAL LANGUAGE TRANSFORMATION
+
+The Home, About, Projects, Experience, Expertise, Contact, intro and metadata copy was reviewed for clarity and adjusted toward a personal, professional voice rather than corporate-heavy language. Examples: “Engineering intelligent systems for real-world workflows” became “Building AI systems for real-world needs”; “Engineering capabilities and technical domains” became “Tools, skills and what I’m learning.” Project case-study contributions use specific language about backend workflows, speech integrations, inference and laboratory interfaces without adding performance or deployment claims. Experience statements describe contributions rather than asserting leadership.
+
+MLOps is explicitly labeled **Currently Learning** in the existing expertise area; the learning entry was removed from project records because it described a learning activity, not an eleventh project, and did not satisfy the project data type. Its listed technologies are labeled as learning, not professional deployment experience. The workbook is self-reported evidence, not independent proof of outcomes. Dates for ConsultAI and medicine detection, Edge AI status versus period, Yellow/Green validation status, and project-level ownership remain **owner verification needed**; no conflicting date or status was silently changed. LIS remains Completed as previously recorded. PRBot was not found among the ten active project records and was not invented.
+
+Files touched across the content work: `components/pages/HomePage.tsx`, `components/sections/AboutSection.tsx`, `components/sections/DayNightIntro.tsx`, `app/layout.tsx`, `lib/projects.ts`, `lib/skills.ts` and `lib/experience.ts`. TypeScript, lint, browser and loader tests and production build passed for the updated copy. Browser screenshots and responsive geometry were captured separately; comprehensive visual inspection remains partial.
+
 ## CONTACT COMPOSITION CORRECTION
 
 The Contact wrapper was a grid retaining `justify-content:flex-start` from shared visual-wrapper rules, allowing its implicit column to shrink-wrap the card and footer. The artwork was absolutely positioned over the text. `components/pages/HomePage.tsx` now groups the existing contact content separately from the existing artwork; `app/globals.css` defines a full-width wrapper track, a centered 1,320 px maximum card with 55/45 content/art columns, and a full-width footer. Mobile stacks artwork below content. `tests/browser.mjs` adds geometry checks for centering, footer width and non-overlap.

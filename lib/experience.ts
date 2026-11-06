@@ -13,11 +13,11 @@ export const experience: ExperienceEntry[] = [
     organization: 'Artem HealthTech Pvt. Ltd.',
     period: 'August 2025 — Present',
     status: 'Current',
-    summary: 'Healthcare AI, clinical workflow engineering, speech systems, computer vision and laboratory integrations.',
+    summary: 'Working across healthcare AI, speech systems, computer vision and laboratory integrations.',
     contributions: [
-      'Work across clinical decision-support and multilingual pre-consultation systems, including backend workflows, provider integrations and safety-related features.',
-      'Develop speech infrastructure and integrations across multiple STT providers and streaming interfaces.',
-      'Contribute to computer-vision inference and edge optimization, as well as LIS UI and analyzer integration work.',
+      'Develop backend workflows, provider integrations and safety-related features for clinical decision-support and multilingual pre-consultation applications.',
+      'Integrate speech-to-text providers and streaming interfaces into shared speech infrastructure.',
+      'Contribute to computer-vision inference and edge optimization, alongside LIS interface and analyzer integration work.',
     ],
   },
 ]

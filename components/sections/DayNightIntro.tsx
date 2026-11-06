@@ -138,6 +138,6 @@ export default function DayNightIntro() {
     <div className="intro-sky"/><div className="intro-atmosphere"/><div className="intro-stars"><i/><i/><i/><i/><i/><i/><i/><i/></div>
     <div className="intro-moon"><span/></div><div className="intro-glow"/><div className="intro-sun"/>
     <svg className="intro-mountains" viewBox="0 0 1440 420" preserveAspectRatio="none"><path className="intro-mountain-back" d="M0 242 150 154l115 82 170-142 147 133 124-97 120 100 145-137 145 123 111-67 213 138v133H0Z"/><path className="intro-mountain-front" d="m0 306 150-91 140 109 138-99 158 91 132-111 157 121 143-97 132 85 125-87 165 100v93H0Z"/></svg>
-    <div className="intro-brand"><span className="intro-mark">KS</span><span className="intro-brand-copy"><strong>Kuldeep Solanki</strong><small>AI/ML Engineer · Full-Stack Developer</small><em>Building practical AI systems.</em></span></div>
+    <div className="intro-brand"><span className="intro-mark">KS</span><span className="intro-brand-copy"><strong>Kuldeep Solanki</strong><small>AI/ML Engineer · Full-Stack Developer</small><em>Applied AI and systems engineering.</em></span></div>
   </div>
 }

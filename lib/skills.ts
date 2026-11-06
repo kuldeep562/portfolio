@@ -8,7 +8,7 @@ export interface SkillCategory {
 export const skillCategories: SkillCategory[] = [
   {
     name: 'AI / ML Engineering',
-    description: 'Model development, evaluation and integration into practical systems.',
+    description: 'Model development, evaluation and inference integration for applied machine learning workflows.',
     skills: ['PyTorch', 'Transformers', 'MMDetection', 'YOLO', 'ONNX', 'TensorRT'],
     projects: ['Medicine Detection on Jetson', 'ConsultAI', 'Edge AI Optimization'],
   },
@@ -41,5 +41,11 @@ export const skillCategories: SkillCategory[] = [
     description: 'Workflow automation, analyzer communication and system operations.',
     skills: ['ASTM', 'HL7', 'TCP/Serial', 'Docker', 'N8N', 'GitLab API'],
     projects: ['LIS UI & Analyzer Integration', 'ETL Automation', 'Yellow/Green Dashboard'],
+  },
+  {
+    name: 'MLOps — Currently Learning',
+    description: 'Developing knowledge of machine learning operations, deployment workflows, model versioning and monitoring.',
+    skills: ['MLflow (learning)', 'Docker (learning)', 'CI/CD (learning)'],
+    projects: [],
   },
 ]

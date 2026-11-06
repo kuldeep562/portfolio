@@ -88,20 +88,6 @@ export const projects: PortfolioProject[] = [
     technologies: ['Camunda 8', 'BPMN', 'DMN', 'FHIR', 'HL7'],
     evidence: 'WorkBook.xlsx — Projects row 44. Design phase only.'
   },
-  {
-  slug: 'mlops',
-  name: 'MLOps',
-  category: 'Learning & Development',
-  status: 'Currently Learning',
-  summary: 'Exploring machine learning operations and production-ready ML workflows.',
-  technologies: [
-    'MLflow',
-    'Docker',
-    'CI/CD',
-    'Model Versioning',
-    'Model Monitoring'
-  ]
-}
 ]
 
 export const featuredProjects = projects.filter(project => project.featured)
